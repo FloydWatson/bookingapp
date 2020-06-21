@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import '../models/booking.dart';
+import '../models/http_exception.dart';
 
 class Bookings with ChangeNotifier {
   // list of bookings
@@ -97,5 +98,24 @@ class Bookings with ChangeNotifier {
       print(error);
       throw error;
     }
+  }
+
+  Future<void> deleteBooking(String id) async {
+    final url = 'https://bookingapp-bc77c.firebaseio.com/bookings/$id.json?auth=$authToken';
+    // copying original to use as a fail safe
+    final existingBookingIndex = _bookings.indexWhere((booking) => booking.id == id);
+    var existingBooking = _bookings[existingBookingIndex];
+    _bookings.removeAt(existingBookingIndex);
+    notifyListeners();
+    final response = await http.delete(url);
+    // optimistic updating. re add booking if it fails
+    // custom error code check
+    if (response.statusCode >= 400) {
+      _bookings.insert(existingBookingIndex, existingBooking);
+      notifyListeners();
+      // throw custom error - dart team discourages us from using Exception() class. instead we create one
+      throw HttpException('Could not delete booking.');
+    }
+    existingBooking = null;
   }
 }
