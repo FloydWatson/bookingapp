@@ -81,4 +81,41 @@ class Notes with ChangeNotifier {
       throw error;
     }
   }
+
+  Future<void> updateNote(String id, Note newNote) async {
+    final noteIndex = _notes.indexWhere((note) => note.id == id);
+    if(noteIndex >= 0){
+      final url =
+        'https://bookingapp-bc77c.firebaseio.com/notes/$id.json?auth=$authToken';
+
+      await http.patch(url, body: json.encode(
+        {
+          'bookingId': newNote.bookingId,
+          'title': newNote.title,
+          'body': newNote.body
+        }
+      ));
+      _notes[noteIndex] = newNote;
+      notifyListeners();
+    }
+  }
+
+  Future<void> deleteNote(String id) async {
+    final url =
+        'https://bookingapp-bc77c.firebaseio.com/notes/$id.json?auth=$authToken';
+    
+    final existingNoteIndex = _notes.indexWhere((note) => note.id == id);
+    var existingNote = _notes[existingNoteIndex];
+    _notes.removeAt(existingNoteIndex);
+    final response = await http.delete(url);
+    // optimistic updating. re add booking if it fails
+    // custom error code check
+    if(response.statusCode >=400){
+      _notes.insert(existingNoteIndex, existingNote);
+      notifyListeners();
+      // throw custom error - dart team discourages us from using Exception() class. instead we create one
+      throw HttpException('Could not delete note.');
+    }
+    existingNote = null;
+  }
 }

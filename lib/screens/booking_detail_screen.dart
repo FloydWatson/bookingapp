@@ -5,6 +5,8 @@ import '../providers/bookings.dart';
 
 import '../widgets/app_drawer.dart';
 
+import '../screens/booking_note_screen.dart';
+
 class BookingDetailScreen extends StatelessWidget {
   static const routeName = '/booking-detail';
 
@@ -16,9 +18,11 @@ class BookingDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {
+          Navigator.of(context).pop();
+        }),
         title: Text("${loadedBooking.clientName}'s session"),
       ),
-      drawer: AppDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -52,7 +56,17 @@ class BookingDetailScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 softWrap: true,
               ),
-            )
+            ),
+            Divider(),
+            SizedBox(
+              height: 10,
+            ),
+            RaisedButton(
+              child: Text('Session Notes'),
+              onPressed: () {
+                Navigator.of(context).pushNamed(BookingNotesScreen.routeName, arguments: bookingId);
+              },
+            ),
           ],
         ),
       ),

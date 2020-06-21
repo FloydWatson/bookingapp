@@ -37,6 +37,13 @@ class _EditBookingScreenState extends State<EditBookingScreen> {
   var _isLoading = false;
 
   @override
+  void dispose() {
+    _instructorNameFocusNode.dispose();
+    _bookingAddressFocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     // add focus node
     super.initState();

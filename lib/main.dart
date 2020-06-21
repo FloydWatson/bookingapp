@@ -11,6 +11,8 @@ import './screens/user_bookings_screen.dart';
 import './screens/edit_booking_screen.dart';
 import './screens/booking_overview_screen.dart';
 import './screens/booking_detail_screen.dart';
+import './screens/booking_note_screen.dart';
+import './screens/edit_note_screen.dart';
 
 import './widgets/app_drawer.dart';
 
@@ -75,6 +77,8 @@ class MyApp extends StatelessWidget {
                   UserBookingsScreen.routeName: (ctx) => UserBookingsScreen(),
                   EditBookingScreen.routeName: (ctx) => EditBookingScreen(),
                   BookingDetailScreen.routeName: (ctx) => BookingDetailScreen(),
+                  BookingNotesScreen.routeName: (ctx) => BookingNotesScreen(),
+                  EditNoteScreen.routeName: (ctx) => EditNoteScreen(),
 
                 },
         ),
