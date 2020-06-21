@@ -9,6 +9,7 @@ import './screens/splash_screen.dart';
 import './screens/user_bookings_screen.dart';
 import './screens/edit_booking_screen.dart';
 import './screens/booking_overview_screen.dart';
+import './screens/booking_detail_screen.dart';
 
 import './widgets/app_drawer.dart';
 
@@ -60,6 +61,8 @@ class MyApp extends StatelessWidget {
                 routes: {
                   UserBookingsScreen.routeName: (ctx) => UserBookingsScreen(),
                   EditBookingScreen.routeName: (ctx) => EditBookingScreen(),
+                  BookingDetailScreen.routeName: (ctx) => BookingDetailScreen(),
+
                 },
         ),
       ),

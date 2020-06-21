@@ -45,7 +45,7 @@ class UserBookingItem extends StatelessWidget {
           Text('Date: ${df.format(dateTime)}')
         ],
       ),
-
+      
       // leading: Icon(Icons.bookmark),
       trailing: Container(
         width: 100,
