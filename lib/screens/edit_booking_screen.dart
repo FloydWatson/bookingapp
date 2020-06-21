@@ -37,6 +37,13 @@ class _EditBookingScreenState extends State<EditBookingScreen> {
   var _isLoading = false;
 
   @override
+  void dispose() {
+    _instructorNameFocusNode.dispose();
+    _bookingAddressFocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     // add focus node
     super.initState();
@@ -106,7 +113,7 @@ class _EditBookingScreenState extends State<EditBookingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Product'),
+        title: Text('Edit Booking'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.save),

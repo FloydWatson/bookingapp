@@ -46,7 +46,11 @@ class UserBookingsScreen extends StatelessWidget {
                     child: Consumer<Bookings>(
                       builder: (ctx, bookingsData, _) => Padding(
                         padding: EdgeInsets.all(16),
-                        child: ListView.builder(
+                        child: bookingsData.bookings.length == 0
+                            ? Center(
+                                child: Text('You have no Bookings'),
+                              )
+                            : ListView.builder(
                           itemCount: bookingsData.bookings.length,
                           itemBuilder: (_, i) => Column(
                             children: [
