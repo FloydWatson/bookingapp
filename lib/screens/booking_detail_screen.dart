@@ -2,19 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/bookings.dart';
+import '../providers/hs_forms.dart';
 
 import '../widgets/app_drawer.dart';
 
 import '../screens/booking_note_screen.dart';
+import '../screens/edit_hs_form.dart';
 
-class BookingDetailScreen extends StatelessWidget {
+import '../helpers/hs_form_args.dart';
+
+class BookingDetailScreen extends StatefulWidget {
   static const routeName = '/booking-detail';
+
+  @override
+  _BookingDetailScreenState createState() => _BookingDetailScreenState();
+}
+
+class _BookingDetailScreenState extends State<BookingDetailScreen> {
+
+  var _isInit = true;
+
+  @override
+  void didChangeDependencies() async {
+    if(_isInit){
+      var bookingId = ModalRoute.of(context).settings.arguments as String;
+      await Provider.of<HSForms>(context, listen: false).fetchAndSetHSForms(bookingId);
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
     final bookingId = ModalRoute.of(context).settings.arguments as String;
     final loadedBooking = Provider.of<Bookings>(context, listen: false)
         .findBookingById(bookingId);
+    final hsForms = Provider.of<HSForms>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -62,11 +85,19 @@ class BookingDetailScreen extends StatelessWidget {
               height: 10,
             ),
             RaisedButton(
+              child: Text('Health and Safety Form'),
+              onPressed: () {
+                Navigator.of(context).pushNamed(EditHSFormScreen.routeName, arguments: HSFormArgs(hsForms.getIdIfExists(bookingId), bookingId));
+              },
+            ),
+            Divider(),
+            RaisedButton(
               child: Text('Session Notes'),
               onPressed: () {
                 Navigator.of(context).pushNamed(BookingNotesScreen.routeName, arguments: bookingId);
               },
             ),
+             
           ],
         ),
       ),

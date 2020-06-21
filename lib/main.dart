@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import './providers/auth.dart';
 import './providers/bookings.dart';
 import './providers/notes.dart';
+import './providers/hs_forms.dart';
 
 import './screens/auth_screen.dart';
 import './screens/splash_screen.dart';
@@ -13,6 +14,7 @@ import './screens/booking_overview_screen.dart';
 import './screens/booking_detail_screen.dart';
 import './screens/booking_note_screen.dart';
 import './screens/edit_note_screen.dart';
+import './screens/edit_hs_form.dart';
 
 import './widgets/app_drawer.dart';
 
@@ -53,6 +55,18 @@ class MyApp extends StatelessWidget {
             previousNotes == null ? [] : previousNotes.notes,
           ),
         ),
+        ChangeNotifierProxyProvider<Auth, HSForms>(
+          create: (ctx) => HSForms(
+            '',
+            '',
+            [],
+          ),
+          update: (ctx, auth, previousHSForms) => HSForms(
+            auth.token,
+            auth.userId,
+            previousHSForms == null ? [] : previousHSForms.hsforms,
+          ),
+        ),
       ],
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
@@ -79,6 +93,7 @@ class MyApp extends StatelessWidget {
                   BookingDetailScreen.routeName: (ctx) => BookingDetailScreen(),
                   BookingNotesScreen.routeName: (ctx) => BookingNotesScreen(),
                   EditNoteScreen.routeName: (ctx) => EditNoteScreen(),
+                  EditHSFormScreen.routeName: (ctx) => EditHSFormScreen(),
 
                 },
         ),
