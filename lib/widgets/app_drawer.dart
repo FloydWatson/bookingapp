@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../providers/auth.dart';
 
+import '../screens/user_bookings_screen.dart';
+
 class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,14 @@ class AppDrawer extends StatelessWidget {
             title: Text('Home'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed('/');
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.edit),
+            title: Text('Manage Bookings'),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(UserBookingsScreen.routeName);
             },
           ),
           Divider(),
