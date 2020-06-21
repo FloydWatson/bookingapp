@@ -30,8 +30,10 @@ class Bookings with ChangeNotifier {
   }
 
   Future<void> fetchAndSetBookings([bool filterByUser = false]) async {
-    final filterString = filterByUser ? 'orderBy="instructorId"&equalTo="$userId"' : '';
-    final url = 'https://bookingapp-bc77c.firebaseio.com/products.json?auth=$authToken&$filterString';
+    final filterString =
+        filterByUser ? 'orderBy="instructorId"&equalTo="$userId"' : '';
+    final url =
+        'https://bookingapp-bc77c.firebaseio.com/bookings.json?auth=$authToken&$filterString';
 
     try {
       final response = await http.get(url);
@@ -42,22 +44,19 @@ class Bookings with ChangeNotifier {
       }
 
       final List<Booking> loadedBookings = [];
-      extractedData.forEach((bookingId, bookingData) { 
+      extractedData.forEach((bookingId, bookingData) {
         loadedBookings.add(Booking(
-          id: bookingId,
-          clientName: bookingData['clientName'],
-          instructorName: bookingData['instructorName'],
-          bookingAddress: bookingData['bookingAddress'],
-          clientId: bookingData['clientId'],
-          instructorId: bookingData['instructorId'],
-          dateTime: DateTime.parse(bookingData['dateTime'])
-
-        ));
+            id: bookingId,
+            clientName: bookingData['clientName'],
+            instructorName: bookingData['instructorName'],
+            bookingAddress: bookingData['bookingAddress'],
+            clientId: bookingData['clientId'],
+            instructorId: bookingData['instructorId'],
+            dateTime: DateTime.parse(bookingData['dateTime'])));
       });
 
       _bookings = loadedBookings;
       notifyListeners();
-
     } catch (error) {
       throw (error);
     }
@@ -100,10 +99,32 @@ class Bookings with ChangeNotifier {
     }
   }
 
+  Future<void> updateBooking(String id, Booking newBooking) async {
+    final bookingIndex = _bookings.indexWhere((booking) => booking.id == id);
+    if (bookingIndex >= 0) {
+      final url =
+          'https://bookingapp-bc77c.firebaseio.com/bookings/$id.json?auth=$authToken';
+
+      await http.patch(url,
+          body: json.encode({
+            'clientName': newBooking.clientName,
+            'instructorName': newBooking.instructorName,
+            'bookingAddress': newBooking.bookingAddress,
+            'clientId': newBooking.clientId,
+            'instructorId': newBooking.instructorId,
+            'dateTime': newBooking.dateTime.toIso8601String()
+          }));
+      _bookings[bookingIndex] = newBooking;
+      notifyListeners();
+    }
+  }
+
   Future<void> deleteBooking(String id) async {
-    final url = 'https://bookingapp-bc77c.firebaseio.com/bookings/$id.json?auth=$authToken';
+    final url =
+        'https://bookingapp-bc77c.firebaseio.com/bookings/$id.json?auth=$authToken';
     // copying original to use as a fail safe
-    final existingBookingIndex = _bookings.indexWhere((booking) => booking.id == id);
+    final existingBookingIndex =
+        _bookings.indexWhere((booking) => booking.id == id);
     var existingBooking = _bookings[existingBookingIndex];
     _bookings.removeAt(existingBookingIndex);
     notifyListeners();

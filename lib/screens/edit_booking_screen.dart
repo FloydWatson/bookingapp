@@ -71,8 +71,8 @@ class _EditBookingScreenState extends State<EditBookingScreen> {
     });
     if (_editedBooking.id != null) {
       // add update method
-      // await Provider.of<Bookings>(context, listen: false)
-      //     .updateBooking(_editedBooking.id, _editedBooking);
+      await Provider.of<Bookings>(context, listen: false)
+          .updateBooking(_editedBooking.id, _editedBooking);
     } else {
       try {
         await Provider.of<Bookings>(context, listen: false)
