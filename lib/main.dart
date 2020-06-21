@@ -6,6 +6,8 @@ import './providers/auth.dart';
 import './screens/auth_screen.dart';
 import './screens/splash_screen.dart';
 
+import './widgets/app_drawer.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -52,6 +54,7 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         title: Text('Generic Booking Company'),
       ),
+      drawer: AppDrawer(),
       body: Center(
         child: Text('App Body'),
       ),
