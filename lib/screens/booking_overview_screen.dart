@@ -7,8 +7,6 @@ import '../providers/bookings.dart';
 import '../widgets/booking_item.dart';
 
 class BookingOverviewScreen extends StatelessWidget {
-
-
   Future<void> _refreshBookings(BuildContext context) async {
     await Provider.of<Bookings>(context, listen: false)
         .fetchAndSetBookings(true);
@@ -19,7 +17,6 @@ class BookingOverviewScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bookings'),
-        
       ),
       drawer: AppDrawer(),
       body: FutureBuilder(
@@ -37,22 +34,26 @@ class BookingOverviewScreen extends StatelessWidget {
                     child: Consumer<Bookings>(
                       builder: (ctx, bookingsData, _) => Padding(
                         padding: EdgeInsets.all(16),
-                        child: ListView.builder(
-                          itemCount: bookingsData.bookings.length,
-                          itemBuilder: (_, i) => Column(
-                            children: [
-                              BookingItem(
-                                bookingsData.bookings[i].id,
-                                bookingsData.bookings[i].clientName,
-                                bookingsData.bookings[i].instructorName,
-                                bookingsData.bookings[i].bookingAddress,
-                                bookingsData.bookings[i].dateTime,
+                        child: bookingsData.bookings.length == 0
+                            ? Center(
+                                child: Text('You have no Bookings'),
+                              )
+                            : ListView.builder(
+                                itemCount: bookingsData.bookings.length,
+                                itemBuilder: (_, i) => Column(
+                                  children: [
+                                    BookingItem(
+                                      bookingsData.bookings[i].id,
+                                      bookingsData.bookings[i].clientName,
+                                      bookingsData.bookings[i].instructorName,
+                                      bookingsData.bookings[i].bookingAddress,
+                                      bookingsData.bookings[i].dateTime,
+                                    ),
+                                    // add booking Item
+                                    Divider(),
+                                  ],
+                                ),
                               ),
-                              // add booking Item
-                              Divider(),
-                            ],
-                          ),
-                        ),
                       ),
                     ),
                   ),

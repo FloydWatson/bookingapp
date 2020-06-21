@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 import '../screens/booking_detail_screen.dart';
 
+
 class BookingItem extends StatelessWidget {
   final df = new DateFormat('dd-MM-yyyy hh:mm a');
 
@@ -22,17 +23,15 @@ class BookingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(BookingDetailScreen.routeName, arguments: id);
+        Navigator.of(context)
+            .pushNamed(BookingDetailScreen.routeName, arguments: id);
       },
-          child: ListTile(
+      child: ListTile(
         leading: Hero(
           tag: id,
-                  child: Image.asset(
-            'assets/images/weaveItMapImage.png'
-          ),
+          child: Image.asset('assets/images/weaveItMapImage.png'),
         ),
         title: Text('$clientName'),
         subtitle: Column(
@@ -45,7 +44,8 @@ class BookingItem extends StatelessWidget {
             SizedBox(
               height: 5,
             ),
-            Text('Date: ${df.format(dateTime)}')
+            Text('Date: ${df.format(dateTime)}'),
+            
           ],
         ),
       ),
