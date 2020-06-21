@@ -113,7 +113,7 @@ class _EditBookingScreenState extends State<EditBookingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Product'),
+        title: Text('Edit Booking'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.save),

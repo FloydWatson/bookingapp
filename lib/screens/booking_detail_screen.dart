@@ -39,7 +39,7 @@ class BookingDetailScreen extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              'test',
+              'Session with ${loadedBooking.clientName}',
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 20,
@@ -52,7 +52,7 @@ class BookingDetailScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 10),
               width: double.infinity,
               child: Text(
-                'test',
+                'Session address ${loadedBooking.bookingAddress}',
                 textAlign: TextAlign.center,
                 softWrap: true,
               ),

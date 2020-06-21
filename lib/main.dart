@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
           home: auth.isAuth
               ? BookingOverviewScreen()
               : FutureBuilder(
-                  // check to see if user is still valid from last session. if it is auth will notify and it will push products overview. otherwise auth screen will be pushed
+                  // check to see if user is still valid from last session. if it is auth will notify and it will push bookings overview. otherwise auth screen will be pushed
                   future: auth.tryAutoLogin(),
                   builder: (ctx, authResultSnapshot) =>
                       authResultSnapshot.connectionState ==

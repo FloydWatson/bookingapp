@@ -24,9 +24,11 @@ class BookingNotesScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {
-          Navigator.of(context).pop();
-        }),
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+            }),
         title: const Text('Session Notes'),
         actions: <Widget>[
           IconButton(
@@ -38,7 +40,6 @@ class BookingNotesScreen extends StatelessWidget {
           ),
         ],
       ),
-      
       body: FutureBuilder(
         future: _refreshNotes(context, bookingId),
         builder: (ctx, snapshot) => snapshot.connectionState ==
@@ -53,21 +54,25 @@ class BookingNotesScreen extends StatelessWidget {
                 child: Consumer<Notes>(
                   builder: (ctx, noteData, _) => Padding(
                     padding: EdgeInsets.all(16),
-                    child: ListView.builder(
-                      itemCount: noteData.notes.length,
-                      itemBuilder: (_, i) => Column(
-                        children: [
-                          NoteItem(
-                            noteData.notes[i].id,
-                            noteData.notes[i].bookingId,
-                            noteData.notes[i].title,
-                            noteData.notes[i].body,
+                    child: noteData.notes.length == 0
+                        ? Center(
+                            child: Text('You have no notes for this booking'),
+                          )
+                        : ListView.builder(
+                            itemCount: noteData.notes.length,
+                            itemBuilder: (_, i) => Column(
+                              children: [
+                                NoteItem(
+                                  noteData.notes[i].id,
+                                  noteData.notes[i].bookingId,
+                                  noteData.notes[i].title,
+                                  noteData.notes[i].body,
+                                ),
+                                // add booking Item
+                                Divider(),
+                              ],
+                            ),
                           ),
-                          // add booking Item
-                          Divider(),
-                        ],
-                      ),
-                    ),
                   ),
                 ),
               ),
