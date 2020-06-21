@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import './providers/auth.dart';
 import './providers/bookings.dart';
+import './providers/notes.dart';
 
 import './screens/auth_screen.dart';
 import './screens/splash_screen.dart';
@@ -36,6 +37,18 @@ class MyApp extends StatelessWidget {
             auth.token,
             auth.userId,
             previousBookings == null ? [] : previousBookings.bookings,
+          ),
+        ),
+        ChangeNotifierProxyProvider<Auth, Notes>(
+          create: (ctx) => Notes(
+            '',
+            '',
+            [],
+          ),
+          update: (ctx, auth, previousNotes) => Notes(
+            auth.token,
+            auth.userId,
+            previousNotes == null ? [] : previousNotes.notes,
           ),
         ),
       ],
