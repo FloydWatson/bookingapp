@@ -77,28 +77,28 @@ class MyApp extends StatelessWidget {
             accentColor: Colors.purple,
             fontFamily: 'Lato',
           ),
-          home: 
-          auth.isAuth
-              ? BookingOverviewScreen()
-              : FutureBuilder(
-                  // check to see if user is still valid from last session. if it is auth will notify and it will push bookings overview. otherwise auth screen will be pushed
-                  future: auth.tryAutoLogin(),
-                  builder: (ctx, authResultSnapshot) =>
-                      authResultSnapshot.connectionState ==
-                              ConnectionState.waiting
-                          ? SplashScreen()
-                          : AuthScreen(),
-                ),
-                routes: {
-                  UserBookingsScreen.routeName: (ctx) => UserBookingsScreen(),
-                  EditBookingScreen.routeName: (ctx) => EditBookingScreen(),
-                  BookingDetailScreen.routeName: (ctx) => BookingDetailScreen(),
-                  BookingNotesScreen.routeName: (ctx) => BookingNotesScreen(),
-                  EditNoteScreen.routeName: (ctx) => EditNoteScreen(),
-                  EditHSFormScreen.routeName: (ctx) => EditHSFormScreen(),
-                  SignScreen.routeName: (ctx) => SignScreen(),
+          home: SignScreen()
+          // auth.isAuth
+          //     ? BookingOverviewScreen()
+          //     : FutureBuilder(
+          //         // check to see if user is still valid from last session. if it is auth will notify and it will push bookings overview. otherwise auth screen will be pushed
+          //         future: auth.tryAutoLogin(),
+          //         builder: (ctx, authResultSnapshot) =>
+          //             authResultSnapshot.connectionState ==
+          //                     ConnectionState.waiting
+          //                 ? SplashScreen()
+          //                 : AuthScreen(),
+          //       ),
+          //       routes: {
+          //         UserBookingsScreen.routeName: (ctx) => UserBookingsScreen(),
+          //         EditBookingScreen.routeName: (ctx) => EditBookingScreen(),
+          //         BookingDetailScreen.routeName: (ctx) => BookingDetailScreen(),
+          //         BookingNotesScreen.routeName: (ctx) => BookingNotesScreen(),
+          //         EditNoteScreen.routeName: (ctx) => EditNoteScreen(),
+          //         EditHSFormScreen.routeName: (ctx) => EditHSFormScreen(),
+          //         SignScreen.routeName: (ctx) => SignScreen(),
 
-                },
+          //       },
         ),
       ),
     );

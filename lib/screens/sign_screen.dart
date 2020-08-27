@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/sign_widget.dart';
+import '../widgets/barcode_widget.dart';
 
 class SignScreen extends StatelessWidget {
 
@@ -12,7 +13,7 @@ class SignScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Sign'),
       ),
-      body: Sign(),
+      body: BarcodeScanner(), //Sign(),
     );
   }
 }
