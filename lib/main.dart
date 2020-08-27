@@ -15,6 +15,7 @@ import './screens/booking_detail_screen.dart';
 import './screens/booking_note_screen.dart';
 import './screens/edit_note_screen.dart';
 import './screens/edit_hs_form.dart';
+import './screens/sign_screen.dart';
 
 import './widgets/app_drawer.dart';
 
@@ -76,7 +77,8 @@ class MyApp extends StatelessWidget {
             accentColor: Colors.purple,
             fontFamily: 'Lato',
           ),
-          home: auth.isAuth
+          home: 
+          auth.isAuth
               ? BookingOverviewScreen()
               : FutureBuilder(
                   // check to see if user is still valid from last session. if it is auth will notify and it will push bookings overview. otherwise auth screen will be pushed
@@ -94,6 +96,7 @@ class MyApp extends StatelessWidget {
                   BookingNotesScreen.routeName: (ctx) => BookingNotesScreen(),
                   EditNoteScreen.routeName: (ctx) => EditNoteScreen(),
                   EditHSFormScreen.routeName: (ctx) => EditHSFormScreen(),
+                  SignScreen.routeName: (ctx) => SignScreen(),
 
                 },
         ),
